@@ -14,7 +14,7 @@ class M_histori extends CI_Model{
             positif, sembuh, meninggal');
         $this->db->from('histori');
         $this->db->where('tanggal BETWEEN \''.$tgl_awal.'\' AND \''.$tgl_akhir.'\'');
-        $this->db->order_by('tanggal', 'DESC');
+        $this->db->order_by('tanggal');
         return $this->db->get();
     }
 }

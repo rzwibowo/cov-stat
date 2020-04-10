@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 $this->load->view('dist/_partials/header');
 ?>
+
 <body>
   <div id="app">
     <section class="section">
@@ -12,7 +13,9 @@ $this->load->view('dist/_partials/header');
               <img src="<?php echo base_url(); ?>assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
             </div>
             <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
+              <div class="card-header">
+                <h4>Login</h4>
+              </div>
 
               <div class="card-body">
                 <form method="POST" action="<?php echo base_url('login/aksi_login'); ?>" class="needs-validation" novalidate="">
@@ -41,7 +44,9 @@ $this->load->view('dist/_partials/header');
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; Stisla 2018
+              &copy; 2020
+              • Made with 🔥 by <a href="https://wibowo-dev.web.app" target="_blank">Wibowo Devs</a>
+              • Supported by <a href="https://rsiwonosobo.com" target="_blank">RSI Wonosobo</a>
             </div>
           </div>
         </div>
@@ -49,5 +54,5 @@ $this->load->view('dist/_partials/header');
     </section>
   </div>
 
-<?php $this->load->view('dist/_partials/js'); ?>
-<?php $this->load->view('dist/_partials/closing'); ?>
+  <?php $this->load->view('dist/_partials/js'); ?>
+  <?php $this->load->view('dist/_partials/closing'); ?>

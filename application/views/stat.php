@@ -11,7 +11,7 @@ $this->load->view('dist/_partials/header');
         <div id="app">
             <div class="row">
                 <div class="col-md-12">
-                    <i>Data diperbarui pada: <span>{{ moment(data_harian.tanggal).format('DD-MM-YYYY') }}</span></i>
+                    <i class="ml-2 mb-2">Data diperbarui pada: <strong>{{ moment(data_harian.tanggal).format('DD-MM-YYYY') }}</strong></i>
                 </div>
             </div>
             <div class="row">
@@ -52,7 +52,7 @@ $this->load->view('dist/_partials/header');
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>POSITIF</h4>
+                                <h4>Positif</h4>
                             </div>
                             <div class="card-body">
                                 {{ data_harian.positif }}
@@ -93,6 +93,11 @@ $this->load->view('dist/_partials/header');
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="ml-2 mb-2">Data diambil dari <a href="https://corona.wonosobokab.go.id" target="_blank">Corona Wonosobo</a></p>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 col-12 col-sm-12">
@@ -107,6 +112,67 @@ $this->load->view('dist/_partials/header');
             </div>
         </div>
     </section>
+    <div class="row">
+        <div class="col-md-6">
+            <section class="section">
+                <div class="section-header">
+                    <h3>Terminologi</h3>
+                </div>
+                <div class="card card-info">
+                    <div class="card-body">
+                        <p class="text-justify mb-2"><b>Orang Dalam Pemantauan (ODP)</b> adalah seseorang yang mengalami gejala
+                            demam (&gt;38 C) atau riwayat demam tanpa pneumonia yang memiliki riwayat perjalanan ke wilayah yang
+                            terjangkit.</p>
+                        <p class="text-justify mb-5"><b>Pasien Dalam Pengawasan (PDP)</b> adalah pasien pnemonia ringan hingga
+                            berat yang mengalami demam (&gt;38 C) atau riwayat demam dan memiliki riwayat kontak dengan hewan penular,
+                            riwayat kontak dengan pasien COVID-19, atau riwayat perjalanan ke negara terjangkit dalam 14 hari.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <section class="section">
+                <div class="section-header">
+                    <h3>Tautan Eksternal</h3>
+                </div>
+                <div class="card card-info">
+                    <div class="card-body">
+                        <ul>
+                            <li>
+                                <a href="https://instagram.com/rsiwonosobo" target="_blank">Instagram RSI Wonosobo</a>
+                            </li>
+                            <li>
+                                <a href="https://corona.wonosobokab.go.id" target="_blank">Corona Wonosobo</a>
+                            </li>
+                            <li>
+                                <a href="https://corona.jatengprov.go.id" target="_blank">Corona Jateng</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <h3>Hotline Corona</h3>
+                </div>
+                <div class="card card-info">
+                    <div class="card-body">
+                        <ul>
+                            <li>
+                                <a href="tel:6282134088626">RSI Wonosobo: 0821 3408 8626</a>
+                            </li>
+                            <li>
+                                <a href="tel:628112600121" target="_blank">Corona Wonosobo: 0811 2600 121</a>
+                            </li>
+                            <li>
+                                <a href="tel:6282313600560" target="_blank">Corona Jateng: 0823 2360 0650</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 </div>
 <?php $this->load->view('dist/_partials/footer'); ?>
 <script src="<?php echo base_url(); ?>assets/modules/vue.min.js"></script>
