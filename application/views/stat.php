@@ -101,7 +101,7 @@ $this->load->view('dist/_partials/header');
                         <h4>Statistik Dalam 7 Hari Terakhir</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" height="80"></canvas>
+                        <canvas id="myChart" height="120"></canvas>
                     </div>
                 </div>
             </div>
@@ -166,7 +166,7 @@ $this->load->view('dist/_partials/header');
                             },
                             {
                                 label: 'PDP',
-                                data: odp,
+                                data: pdp,
                                 borderWidth: 5,
                                 borderColor: '#ffa426',
                                 backgroundColor: 'transparent',

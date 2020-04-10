@@ -27,6 +27,10 @@ class Admin_api extends REST_Controller
         // Construct the parent class
         parent::__construct($config);
         $this->load->model('m_admin');
+        
+        if($this->session->userdata('status') != "login"){
+			redirect(base_url("login"));
+		}
     }
     public function list_get()
     {
