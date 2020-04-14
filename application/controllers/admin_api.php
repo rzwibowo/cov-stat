@@ -32,9 +32,26 @@ class Admin_api extends REST_Controller
 			redirect(base_url("login"));
 		}
     }
-    public function list_get()
+    /**
+     * @param $par: parameter. opsinya:
+     *      tgl: untuk ambil data berdasar tanggal
+     *      nav: untuk ambil data berdasar navigasi
+     * @param $val: isi parameter, sesuai parameter pilihan
+     *      tgl: tanggal format 'YYYY-MM-DD'
+     *      nav: integer
+     */
+    public function list_get($par = 'nav', $val = '0')
     {
-        $data = $this->m_admin->view()->result();
+        $data = $this->m_admin->view($par, $val)->result();
+        if ($data) {
+            $this->set_response($data, REST_Controller::HTTP_OK);
+        } else {
+            $this->set_response(array('error' => 'Tidak ditemukan data'),  REST_Controller::HTTP_NOT_FOUND);
+        }
+    }
+    public function totaldata_get()
+    {
+        $data = $this->m_admin->counted();
         if ($data) {
             $this->set_response($data, REST_Controller::HTTP_OK);
         } else {

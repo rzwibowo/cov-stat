@@ -106,7 +106,9 @@ $this->load->view('dist/_partials/header');
                         <h4>Statistik Dalam 7 Hari Terakhir</h4>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" height="120"></canvas>
+                        <div class="table-responsive">
+                            <canvas id="myChart" height="400"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -281,6 +283,7 @@ $this->load->view('dist/_partials/header');
                             }
                         }]
                     },
+                    maintainAspectRatio: false
                 }
             });
         }

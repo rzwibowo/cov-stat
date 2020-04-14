@@ -24,6 +24,21 @@ $this->load->view('dist/_partials/header');
                 </div>
               </div>
               <div class="card-body p-0">
+                <div class="row">
+                  <div class="col-md-2">
+                    <label>Filter tanggal</label>
+                  </div>
+                  <div class="col-md-2">
+                    <input type="date" v-model="tgl_filter" class="form-control"
+                      @change="getList">
+                  </div>
+                  <div class="col-md-2">
+                    <button class="btn btn-outline-secondary" :disabled="!tgl_filter"
+                      @click="resetTgl">
+                      Reset
+                    </button>
+                  </div>
+                </div>
                 <div class="table-responsive">
                   <table class="table table-striped table-md">
                     <thead>
@@ -46,32 +61,52 @@ $this->load->view('dist/_partials/header');
                         <td>{{ stat.pdp }}</td>
                         <td>{{ stat.positif }}</td>
                         <td>{{ stat.sembuh }}</td>
-                        <td>{{ stat.meninggal }}</td>=
+                        <td>{{ stat.meninggal }}</td>
                         <td>
-                          <a href="#" class="btn btn-secondary" @click="edit(stat.id)">Edit</a>
-                          <a href="#" class="btn btn-secondary" @click="delete_h(stat.id)">Hapus</a>
+                          <a href="#" class="btn btn-outline-primary" @click="edit(stat.id)">Edit</a>
+                          <a href="#" class="btn btn-outline-danger" @click="delete_h(stat.id)">Hapus</a>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div class="card-footer text-right">
-                <nav class="d-inline-block">
-                  <ul class="pagination mb-0">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1 <span class="sr-only">(current)</span></a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
-                    </li>
-                  </ul>
-                </nav>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-md-6">
+                    Data ke-{{ data_ke + 1 }} hingga {{ data_hingga >= total_data ? total_data : data_hingga }} dari {{ total_data }}
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <nav class="d-inline-block">
+                      <ul class="pagination mb-0">
+                        <li class="page-item">
+                          <button class="page-link" href="#" :disabled="data_ke === 0"
+                            @click="pageNav('f')">
+                            Pertama
+                          </button>
+                        </li>
+                        <li class="page-item">
+                          <button class="page-link" href="#" :disabled="data_ke === 0"
+                            @click="pageNav(0)">
+                            <i class="fas fa-chevron-left"></i>
+                          </button>
+                        </li>
+                        <li class="page-item">
+                          <button class="page-link" href="#" :disabled="data_hingga >= total_data"
+                            @click="pageNav(1)">
+                            <i class="fas fa-chevron-right"></i>
+                          </button>
+                        </li>
+                        <li class="page-item">
+                          <button class="page-link" :disabled="data_hingga >= total_data"
+                            @click="pageNav('l')">
+                            Terakhir
+                          </button>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -148,12 +183,17 @@ $this->load->view('dist/_partials/header');
       return {
         data_harian: {},
         data_harians: [],
+        tgl_filter: null,
+        data_ke: 0,
+        data_hingga: 10,
+        total_data: null,
         onprogress: false
       }
     },
     mounted: function() {
       this.defaultTanggal()
       this.getList()
+      this.getTotalNumberData()
     },
     methods: {
       openmod: function () {
@@ -165,9 +205,28 @@ $this->load->view('dist/_partials/header');
         this.data_harian.tanggal = moment().format('YYYY-MM-DD')
       },
       getList: function() {
-        axios.get('<?php echo base_url(); ?>admin_api/list')
-          .then(res => this.data_harians = res.data)
-          .catch(err => alert(err))
+        let url = '<?php echo base_url(); ?>admin_api/list'
+        if (this.tgl_filter) {
+          url = `<?php echo base_url(); ?>admin_api/list/tgl/${this.tgl_filter}`
+        } else {
+          url = `<?php echo base_url(); ?>admin_api/list/nav/${this.data_ke}`
+        }
+        axios.get(url)
+          .then(res => {
+            this.data_harians = res.data
+          })
+          .catch(err => {
+            alert(err)
+          })
+      },
+      getTotalNumberData: function() {
+        axios.get('<?php echo base_url(); ?>admin_api/totaldata')
+          .then(res => {
+            this.total_data = res.data
+          })
+          .catch(err => {
+            alert(err)
+          })
       },
       edit: function (id) {
         axios.get('<?php echo base_url(); ?>admin_api/getdata/' + id)
@@ -215,6 +274,29 @@ $this->load->view('dist/_partials/header');
             })
             .catch(err => alert(err))
         }
+      },
+      resetTgl: function() {
+        this.tgl_filter = null
+        this.getList()
+      },
+      pageNav: function(direction) {
+        this.tgl_filter = null
+        if (direction === 0) {
+          this.data_ke -= 10
+          this.data_hingga -= 10
+        } else if (direction === 1) {
+          this.data_ke += 10
+          this.data_hingga += 10
+        } else if (direction === 'f') {
+          this.data_ke = 0
+          this.data_hingga = 10
+        } else if (direction === 'l') {
+          const pengurang = Math.floor(this.total_data / 10) * 10
+          const total_helper = pengurang + 10
+          this.data_ke = pengurang
+          this.data_hingga = total_helper
+        }
+        this.getList()
       }
     }
   })
