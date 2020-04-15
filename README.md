@@ -58,5 +58,6 @@ Response example:
         "meninggal": "0"
     }
 ]
-```
+```  
 
+_Saran pengembangan dapat disampaikan melalui Issues atau dengan mengajukan PR_
