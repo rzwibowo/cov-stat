@@ -55,7 +55,7 @@ $this->load->view('dist/_partials/header');
                     </thead>
                     <tbody>
                       <tr v-for="(stat, index) in data_harians">
-                        <td>{{ index + 1 }}</td>
+                        <td><span v-show="!tgl_filter">{{ index + 1 + data_ke }}</span></td>
                         <td>{{ moment(stat.tanggal).format('DD-MM-YYYY') }}</td>
                         <td>{{ stat.odp }}</td>
                         <td>{{ stat.pdp }}</td>
@@ -74,7 +74,7 @@ $this->load->view('dist/_partials/header');
               <div class="card-footer">
                 <div class="row">
                   <div class="col-md-6">
-                    Data ke-{{ data_ke + 1 }} hingga {{ data_hingga >= total_data ? total_data : data_hingga }} dari {{ total_data }}
+                    <span v-show="!tgl_filter">Data ke-{{ data_ke + 1 }} hingga {{ data_hingga >= total_data ? total_data : data_hingga }} dari {{ total_data }}</span>
                   </div>
                   <div class="col-md-6 text-right">
                     <nav class="d-inline-block">
@@ -246,7 +246,8 @@ $this->load->view('dist/_partials/header');
               $('#modal-data').modal('hide')
               this.data_harian = {}
               this.defaultTanggal()
-              this.getList()
+              this.getTotalNumberData()
+              this.pageNav()
             })
             .catch(err => alert(err))
             .finally(() => this.onprogress = false)
@@ -258,7 +259,8 @@ $this->load->view('dist/_partials/header');
               $('#modal-data').modal('hide')
               this.data_harian = {}
               this.defaultTanggal()
-              this.getList()
+              this.getTotalNumberData()
+              this.pageNav()
             })
             .catch(err => alert(err))
             .finally(() => this.onprogress = false)
