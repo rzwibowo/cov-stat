@@ -4,8 +4,8 @@ Aplikasi pencatatan statistik COVID-19 untuk wilayah Kabupaten Wonosobo. Dilengk
  
 ## Fitur Utama
 
- - Penyajian data jumlah ODP, PDP, Positif, Sembuh dan Meninggal
- - Penyajian data jumlah ODP, PDP dan Positif dalam 7 hari terakhir dengan grafik
+ - Penyajian data jumlah Suspek, Probabel, Konfirmasi, Sembuh dan Meninggal
+ - Penyajian data jumlah Suspek, Probabel, dan Konfirmasi dalam 7 hari terakhir dengan grafik
  - Administrasi data
  - API Publik
  
