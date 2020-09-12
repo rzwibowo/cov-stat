@@ -22,10 +22,10 @@ $this->load->view('dist/_partials/header');
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>ODP</h4>
+                                <h4>SUSPEK</h4>
                             </div>
                             <div class="card-body">
-                                {{ data_harian.odp }}
+                                {{ data_harian.suspek }}
                             </div>
                         </div>
                     </div>
@@ -37,10 +37,10 @@ $this->load->view('dist/_partials/header');
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>PDP</h4>
+                                <h4>PROBABEL</h4>
                             </div>
                             <div class="card-body">
-                                {{ data_harian.pdp }}
+                                {{ data_harian.probabel }}
                             </div>
                         </div>
                     </div>
@@ -52,10 +52,10 @@ $this->load->view('dist/_partials/header');
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Positif</h4>
+                                <h4>KONFIRMASI</h4>
                             </div>
                             <div class="card-body">
-                                {{ data_harian.positif }}
+                                {{ data_harian.konfirmasi }}
                             </div>
                         </div>
                     </div>
@@ -122,12 +122,18 @@ $this->load->view('dist/_partials/header');
                 </div>
                 <div class="card card-info">
                     <div class="card-body">
-                        <p class="text-justify mb-2"><b>Orang Dalam Pemantauan (ODP)</b> adalah seseorang yang mengalami gejala
-                            demam (&gt;38 C) atau riwayat demam tanpa pneumonia yang memiliki riwayat perjalanan ke wilayah yang
-                            terjangkit.</p>
-                        <p class="text-justify mb-5"><b>Pasien Dalam Pengawasan (PDP)</b> adalah pasien pnemonia ringan hingga
-                            berat yang mengalami demam (&gt;38 C) atau riwayat demam dan memiliki riwayat kontak dengan hewan penular,
-                            riwayat kontak dengan pasien COVID-19, atau riwayat perjalanan ke negara terjangkit dalam 14 hari.</p>
+                        <p class="text-justify mb-2"><b>SUSPEK</b> Orang dengan ISPA dan pada 14 hari terakhir 
+                            sebelum timbul gejala memiliki riwayat perjalanan atau tinggal di wilayah yang 
+                            melaporkan transmisi.
+                            Orang dengan salah satu gejala/tanda ISPA* dan pada 14 hari terakhir sebelum timbul 
+                            gejala memiliki riwayat kontak dengan kasus konfirmasi/probable covid-19.
+                            Orang dengan ISPA berat/pneumonia yang membutuhkan perawatan di rumah sakit dan tidak 
+                            ada penyebab lain berdasarkan gambaran klinis yang meyakinkan.</p>
+                        <p class="text-justify mb-2"><b>PROBABEL</b> Kasus suspek dengan ISPA Berat/ARDS/meninggal 
+                            dengan gambaran klinis yang meyakinkan covid-19 dan belum ada hasil pemeriksaan 
+                            laboratorium RT-PCR.</p>
+                        <p class="text-justify mb-5"><b>KONFIRMASI</b> Seseorang yang dinyatakan positif terinfeksi 
+                            virus covid-19 yang dibuktikan dengan pemeriksaan laboratorium RT-PCR.</p>
                     </div>
                 </div>
             </section>
@@ -192,7 +198,7 @@ $this->load->view('dist/_partials/header');
         },
         methods: {
             getData: function() {
-                axios.get('<?php echo base_url(); ?>api/mutakhir')
+                axios.get('<?php echo base_url(); ?>api2/mutakhir')
                     .then(res => this.data_harian = res.data[0])
                     .catch(err => alert(err))
             }
@@ -203,28 +209,28 @@ $this->load->view('dist/_partials/header');
         const hari_ini = moment().format('YYYY-MM-DD')
         const hari_7 = moment().subtract(7, 'days').format('YYYY-MM-DD')
 
-        axios.get('<?php echo base_url(); ?>api/rentang/' + hari_7 + '/' + hari_ini)
+        axios.get('<?php echo base_url(); ?>api2/rentang/' + hari_7 + '/' + hari_ini)
             .then(res => {
                 if (res.data.length > 0) {
                     const data = res.data
                     const tanggal = data.map(item => {
                         return moment(item.tanggal).format('DD-MM-YYYY')
                     })
-                    const odp = data.map(item => {
-                        return item.odp
+                    const suspek = data.map(item => {
+                        return item.suspek
                     })
-                    const pdp = data.map(item => {
-                        return item.pdp
+                    const probabel = data.map(item => {
+                        return item.probabel
                     })
-                    const positif = data.map(item => {
-                        return item.positif
+                    const konfirmasi = data.map(item => {
+                        return item.konfirmasi
                     })
 
                     const paket_data = {
                         labels: tanggal,
                         datasets: [{
-                                label: 'ODP',
-                                data: odp,
+                                label: 'Suspek',
+                                data: suspek,
                                 borderWidth: 5,
                                 borderColor: '#3abaf4',
                                 backgroundColor: 'transparent',
@@ -233,8 +239,8 @@ $this->load->view('dist/_partials/header');
                                 pointRadius: 4
                             },
                             {
-                                label: 'PDP',
-                                data: pdp,
+                                label: 'Probabal',
+                                data: probabel,
                                 borderWidth: 5,
                                 borderColor: '#ffa426',
                                 backgroundColor: 'transparent',
@@ -243,8 +249,8 @@ $this->load->view('dist/_partials/header');
                                 pointRadius: 4
                             },
                             {
-                                label: 'Positif',
-                                data: positif,
+                                label: 'Konfirmasi',
+                                data: konfirmasi,
                                 borderWidth: 5,
                                 borderColor: '#fc544b',
                                 backgroundColor: 'transparent',

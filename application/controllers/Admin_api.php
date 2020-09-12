@@ -26,7 +26,7 @@ class Admin_api extends REST_Controller
     {
         // Construct the parent class
         parent::__construct($config);
-        $this->load->model('m_admin');
+        $this->load->model('m_admin2');
         
         if($this->session->userdata('status') != "login"){
 			redirect(base_url("login"));
@@ -42,7 +42,7 @@ class Admin_api extends REST_Controller
      */
     public function list_get($par = 'nav', $val = '0')
     {
-        $data = $this->m_admin->view($par, $val)->result();
+        $data = $this->m_admin2->view($par, $val)->result();
         if ($data) {
             $this->set_response($data, REST_Controller::HTTP_OK);
         } else {
@@ -51,7 +51,7 @@ class Admin_api extends REST_Controller
     }
     public function totaldata_get()
     {
-        $data = $this->m_admin->counted();
+        $data = $this->m_admin2->counted();
         if ($data) {
             $this->set_response($data, REST_Controller::HTTP_OK);
         } else {
@@ -59,7 +59,7 @@ class Admin_api extends REST_Controller
         }
     }
     public function getdata_get($id) {
-        $data = $this->m_admin->get($id)->result();
+        $data = $this->m_admin2->get($id)->result();
         if ($data) {
             $this->set_response($data, REST_Controller::HTTP_OK);
         } else {
@@ -69,7 +69,7 @@ class Admin_api extends REST_Controller
     public function save_post()
     {
         $data = (object)$this->post();
-        if ($this->m_admin->save($data)) {
+        if ($this->m_admin2->save($data)) {
             $this->set_response(array('status' => 'sukses'), REST_Controller::HTTP_CREATED);
         } else {
             $this->set_response(array('error' => 'Error saat simpan data'),  REST_Controller::HTTP_BAD_REQUEST);
@@ -78,7 +78,7 @@ class Admin_api extends REST_Controller
     public function update_post()
     {
         $data = (object)$this->post();
-        if ($this->m_admin->update($data)) {
+        if ($this->m_admin2->update($data)) {
             $this->set_response(array('status' => 'sukses'), REST_Controller::HTTP_CREATED);
         } else {
             $this->set_response(array('error' => 'Error saat simpan data'),  REST_Controller::HTTP_BAD_REQUEST);
@@ -86,7 +86,7 @@ class Admin_api extends REST_Controller
     }
     public function hapus_delete($id)
     {
-        if ($this->m_admin->delete($id)) {
+        if ($this->m_admin2->delete($id)) {
             $this->set_response(array('status' => 'sukses'), REST_Controller::HTTP_CREATED);
         } else {
             $this->set_response(array('error' => 'Error saat simpan data'),  REST_Controller::HTTP_BAD_REQUEST);

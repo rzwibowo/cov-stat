@@ -57,9 +57,9 @@ $this->load->view('dist/_partials/header');
                       <tr v-for="(stat, index) in data_harians">
                         <td><span v-show="!tgl_filter">{{ index + 1 + data_ke }}</span></td>
                         <td>{{ moment(stat.tanggal).format('DD-MM-YYYY') }}</td>
-                        <td>{{ stat.odp }}</td>
-                        <td>{{ stat.pdp }}</td>
-                        <td>{{ stat.positif }}</td>
+                        <td>{{ stat.suspek }}</td>
+                        <td>{{ stat.probabel }}</td>
+                        <td>{{ stat.konfirmasi }}</td>
                         <td>{{ stat.sembuh }}</td>
                         <td>{{ stat.meninggal }}</td>
                         <td>
@@ -132,20 +132,20 @@ $this->load->view('dist/_partials/header');
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
-                <label>ODP</label>
-                <input type="number" class="form-control" v-model="data_harian.odp">
+                <label>SUSPEK</label>
+                <input type="number" class="form-control" v-model="data_harian.suspek">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label>PDP</label>
-                <input type="number" class="form-control" v-model="data_harian.pdp">
+                <label>PROBABEL</label>
+                <input type="number" class="form-control" v-model="data_harian.probabel">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label>Positif</label>
-                <input type="number" class="form-control" v-model="data_harian.positif">
+                <label>KONFIRMASI</label>
+                <input type="number" class="form-control" v-model="data_harian.konfirmasi">
               </div>
             </div>
           </div>
