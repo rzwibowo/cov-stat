@@ -8,11 +8,14 @@ Aplikasi pencatatan statistik COVID-19 untuk wilayah Kabupaten Wonosobo. Dilengk
  - Penyajian data jumlah ODP, PDP dan Positif dalam 7 hari terakhir dengan grafik
  - Administrasi data
  - API Publik
+ 
+## Update
+Terjadi ubahan terminologi
 
 ## Referensi API
 **Data Mutakhir**  
 Method: `GET`  
-Endpoint: `/api/mutakhir`  
+Endpoint: `/api2/mutakhir`  
 Request body: `n/a`  
 Response example:  
 ```
@@ -20,9 +23,9 @@ Response example:
     {
         "id": "21",
         "tanggal": "2020-04-14",
-        "odp": "1950", 
-        "pdp": "43",
-        "positif": "4",
+        "suspek": "1950", 
+        "probabel": "43",
+        "konfirmasi": "4",
         "sembuh": "1",
         "meninggal": "0"
     }  
@@ -31,7 +34,7 @@ Response example:
 
 **Data Per Rentang Tanggal**  
 Method: `GET`  
-Endpoint: `/api/rentang/{tanggalAwal}/{tanggalAkhir}`  
+Endpoint: `/api2/rentang/{tanggalAwal}/{tanggalAkhir}`  
 > Format `tanggalAwal` dan `tanggalAkhir` adalah `'YYYY-MM-DD'`, 
 > `tanggalAwal` harus lebih lampau dari `tanggalAkhir`
 
@@ -42,18 +45,18 @@ Response example:
     {
         "id": "20",
         "tanggal": "2020-04-13",
-        "odp": "1932", 
-        "pdp": "38",
-        "positif": "4",
+        "suspek": "1932", 
+        "probabel": "38",
+        "konfirmasi": "4",
         "sembuh": "1",
         "meninggal": "0"
     },
     {
         "id": "21",
         "tanggal": "2020-04-14",
-        "odp": "1950", 
-        "pdp": "43",
-        "positif": "4",
+        "suspek": "1950", 
+        "probabel": "43",
+        "konfirmasi": "4",
         "sembuh": "1",
         "meninggal": "0"
     }
